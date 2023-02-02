@@ -1,0 +1,56 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content >
+  <div class="img">
+      <img src="./assets/profile.png" alt="photo-profile">
+  </div>
+  <div class="row">
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input matInput [(ngModel)]="newData.name">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Raza</mat-label>
+      <input matInput [(ngModel)]="newData.breed">
+    </mat-form-field>
+
+  </div>
+  <div class="w-100">
+    <mat-form-field appearance="fill" class="example-form-field">
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="datepicker" [(ngModel)]="newData.birthdateFormat">
+      <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker>
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancel</button>
+          <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
+    </mat-form-field>
+
+  </div>
+  <div class="w-100">
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Seleccione un Sexo</mat-label>
+      <mat-select [(ngModel)]="newData.gender">
+        <mat-option value="Macho">Macho</mat-option>
+        <mat-option value="Hembra">Hembra</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="w-100">
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Seleccione un tipo</mat-label>
+      <mat-select [(ngModel)]="newData.petType">
+        <mat-option *ngFor="let item of types" [value]="item.name">{{item.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+
+  <button mat-button color="primary" (click)="save()" cdkFocusInitial>Guardar</button>
+</div>

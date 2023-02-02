@@ -1,0 +1,27 @@
+.img {
+  text-align: center;
+  img {
+
+    width: 200px;
+  }
+}
+.title-header{
+  font-weight: 'bold';
+}
+
+.item{
+  font-size: medium;
+}
+.content {
+     padding: 1.5rem;
+    border: 1px solid #b2bcf3;
+    border-radius: 1rem;
+}
+.events {
+     padding: 1.5rem;
+     flex:1;
+
+}
+.consultas{
+     padding: 1.5rem;
+}

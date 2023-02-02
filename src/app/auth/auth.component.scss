@@ -1,0 +1,22 @@
+.content {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: columns;
+  align-items: center;
+  justify-content: center;
+background: rgb(129,145,238);
+background: linear-gradient(90deg, rgba(129,145,238,1) 0%, rgba(63,81,181,1) 63%, rgba(36,46,104,1) 100%);
+}
+.column {
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+}
+.header {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}

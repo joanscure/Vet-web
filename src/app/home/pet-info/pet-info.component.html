@@ -1,0 +1,102 @@
+<div *ngIf="loading" class="loading">
+  <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="!loading">
+
+  <div class="header" *ngIf="pet">
+    <div class="row">
+      <div class="column content">
+        <div class="img">
+          <img src="./assets/profile.png" alt="photo-profile">
+        </div>
+        <div class="column center">
+          <span class="title-header"><b>{{pet.name}}</b></span>
+          <span >{{pet.petType}}</span>
+          <span class="item"><b>Raza</b>: {{pet.breed}}</span>
+          <span class="item"><b>Edad</b>: {{pet.age}}</span>
+          <span class="item"><b>Sexo</b>: {{pet.gender}}</span>
+        </div>
+      </div>
+      <div class="events">
+        <div class="row-2 p-3">
+          <span class="title-header"><b>Eventos</b></span>
+          <button mat-raised-button color="primary" (click)="openCreateEvent()">Agregar Evento</button>
+
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Motivo</th>
+              <th>Notas</th>
+              <th width="10%">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of events; let i= index">
+              <td>{{item.dateFormat}}</td>
+              <td>{{item.reason}}</td>
+              <td>{{item.notes}}</td>
+              <td class="row">
+                <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" >
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+
+                <button mat-mini-fab color="warn" aria-label="Example icon button with a filter event icon">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="not-found" *ngIf="events.length === 0">
+          No tiene eventos programados
+        </div>
+      </div>
+    </div>
+    <div class="consultas">
+      <div class="row-2 p-3">
+
+        <span class="title-header"><b>Historial Clinico</b></span>
+        <button  mat-raised-button color="primary" (click)="openCreateHistory()">Agregar Historia</button>
+      </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Motivo</th>
+              <th>Anamnesis</th>
+              <th>Diagnostico</th>
+              <th>Tratamiento</th>
+              <th width="10%">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of list; let i= index">
+              <td>{{item.dateFormat}}</td>
+              <td>{{item.reason}}</td>
+              <td>{{item.anamnesis}}</td>
+              <td>{{item.diagnostic}}</td>
+              <td>{{item.treatment}}</td>
+              <td class="row">
+
+                  <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon" >
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+
+                  <button mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon" >
+                    <i class="fas fa-eye"></i>
+                  </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+    <div class="not-found" *ngIf="list.length === 0">
+      No tiene un historial clinico
+    </div>
+    </div>
+  </div>
+</div>

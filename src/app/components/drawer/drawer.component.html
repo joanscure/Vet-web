@@ -1,0 +1,70 @@
+<div class="content">
+  <h2 class="title">Patita Feliz</h2>
+
+  <div *ngIf="user">
+    <mat-card>
+      <mat-card-header class="card">
+        <mat-card-title>{{ user.fulname }}</mat-card-title>
+        <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+  <div class="m-t-3 list">
+    <div class="divider">
+      <span class="divider"> Administrador </span>
+    </div>
+    <a
+      href="javascript:void(0)"
+      class="item"
+      routerLinkActive="active"
+      [routerLink]="['/vet']"
+    >
+      <i class="fa-solid fa-user-doctor"></i>
+      <span> Veterinarios </span>
+    </a>
+
+    <a
+      href="javascript:void(0)"
+      class="item"
+      [routerLink]="['/customer']"
+      routerLinkActive="active"
+    >
+      <i class="fas fa-users"></i>
+      <span> Clientes </span>
+    </a>
+
+    <a
+      href="javascript:void(0)"
+      class="item"
+      [routerLink]="['/user']"
+      routerLinkActive="active"
+    >
+      <i class="fas fa-user-friends"></i>
+      <span> Usuarios </span>
+    </a>
+
+    <a
+      href="javascript:void(0)"
+      class="item"
+      [routerLink]="['/chat']"
+      routerLinkActive="active"
+    >
+      <i class="fas fa-comment"></i>
+      <span> Chat </span>
+    </a>
+
+    <div class="m-t-3">
+      <span class="divider"> Parametros </span>
+    </div>
+
+    <a
+      href="javascript:void(0)"
+      class="item"
+      [routerLink]="['/type-pet']"
+      routerLinkActive="active"
+    >
+      <i class="fa-solid fa-user-doctor"></i>
+      <span> Tipos de mascotas </span>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<h1 mat-dialog-title>Crear Historia Clinica</h1>
+<div mat-dialog-content >
+  <div class="row"
+    >
+
+    <div class="form">
+      <div class="w-100">
+        <mat-form-field class="w-100">
+          <mat-label>Motivo</mat-label>
+          <textarea matInput [(ngModel)]="newData.reason" ></textarea>
+        </mat-form-field>
+      </div>
+      <div class="w-100">
+        <mat-form-field class="w-100">
+          <mat-label>Anamnesis</mat-label>
+          <textarea matInput [(ngModel)]="newData.anamnesis"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="w-100">
+        <mat-form-field class="w-100">
+          <mat-label>Diagnostico</mat-label>
+          <textarea matInput [(ngModel)]="newData.diagnostic"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="w-100">
+        <mat-form-field class="w-100">
+          <mat-label>Tratamiento</mat-label>
+          <textarea matInput [(ngModel)]="newData.treatment"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="w-100">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Fecha de evento</mat-label>
+          <input matInput [matDatepicker]="datepicker" [(ngModel)]="newData.date">
+          <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+          <mat-datepicker #datepicker>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>Cancel</button>
+              <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="adjuntos">
+      <h3>
+        <b>Archivos Adjuntos</b>
+      </h3>
+
+  <button mat-button color="primary" >Agregar Archivo</button>
+    </div>
+
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+
+  <button mat-button color="primary" (click)="save()" cdkFocusInitial>Guardar</button>
+</div>

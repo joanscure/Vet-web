@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content >
+  <div class="w-100">
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Nombre del tipo</mat-label>
+      <input matInput [(ngModel)]="newData.name">
+    </mat-form-field>
+
+  </div>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+
+  <button mat-button color="primary" (click)="save()" cdkFocusInitial>Guardar</button>
+</div>

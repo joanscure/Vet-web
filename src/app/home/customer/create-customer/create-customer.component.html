@@ -1,0 +1,42 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content >
+  <div class="img">
+    <img src="./assets/profile.webp" alt="photo-profile">
+  </div>
+  <div class="row">
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre Completo</mat-label>
+      <input matInput [(ngModel)]="newData.fullname">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="newData.email">
+    </mat-form-field>
+
+  </div>
+  <div class="row">
+    <mat-form-field appearance="fill">
+      <mat-label>Numero de telefono</mat-label>
+      <input matInput [(ngModel)]="newData.profile.phoneNumber">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Numero de whatsapp</mat-label>
+      <input matInput [(ngModel)]="newData.profile.whatsapp">
+    </mat-form-field>
+  </div>
+
+  <div class="w-100">
+    <mat-form-field class="w-100">
+      <mat-label>Notas</mat-label>
+      <textarea matInput [(ngModel)]="newData.profile.notes" ></textarea>
+    </mat-form-field>
+  </div>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+
+  <button mat-button color="primary" (click)="save()" cdkFocusInitial>Guardar</button>
+</div>

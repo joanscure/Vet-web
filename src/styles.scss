@@ -1,1 +1,87 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.header {
+  border-bottom: 1px solid #e6ebf1 !important;
+  background-color: #fff;
+  padding: 25px;
+}
+.title-header {
+  font-size: 1.875rem;
+  text-transform: uppercase;
+  line-height: 2.25rem;
+}
+.body {
+  background-color: #f3f4f6;
+  padding: 25px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.center {
+  align-items: center;
+  justify-content: center;
+}
+.row-2 {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+}
+.table {
+  table-layout: auto;
+  width: 100%;
+  text-align: left;
+  border-radius: .625rem .625rem 0 0;
+  border-collapse: initial;
+  border-spacing: 0;
+}
+.table th {
+  font-weight: 700;
+  color: #1a3353;
+  position: relative;
+  padding: 8px 8px 8px 16px;
+  overflow-wrap: break-word;
+  text-align: left;
+  border-bottom: 1px solid #e6ebf1;
+  transition: background .3s ease;
+}
+.table td {
+  border-bottom: 1px solid #e6ebf1;
+  position: relative;
+  padding: 16px;
+  overflow-wrap: break-word;
+  transition: background .3s;
+}
+.loading{
+  text-align: center;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.not-found {
+    padding: 1.25rem;
+    font-size: large;
+}
+.p-3 {
+  padding: 1.2rem;
+
+}

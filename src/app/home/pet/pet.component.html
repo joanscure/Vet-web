@@ -1,0 +1,64 @@
+<div class="header">
+  <span class="title-header" *ngIf="user">
+    Lista de Mascotas de {{user.fullname}}
+  </span>
+</div>
+<div class="body">
+  <div class="row-2">
+      <mat-form-field class="example-form-field">
+        <mat-label>Buscar Mascota</mat-label>
+        <input matInput type="text" [(ngModel)]="search">
+        <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <div>
+        <button mat-button color="primary" (click)="openCreateDialog()">
+        <i class="fa-solid fa-plus"></i>
+        Agregar
+      </button>
+      </div>
+  </div>
+  <div *ngIf="loading" class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div *ngIf="!loading">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Raza</th>
+          <th>Edad</th>
+          <th>Genero</th>
+          <th>Tipo de Mascota</th>
+          <th width="10%">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of list | filterList: search; let i= index">
+          <td>{{item.name}}</td>
+          <td>{{item.breed}}</td>
+          <td>{{item.age}}</td>
+          <td>{{item.gender}}</td>
+          <td>{{item.petType}}</td>
+          <td class="row">
+              <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" (click)="openEditDialog(item)">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+
+              <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon" (click)="deleteItem(item,i)">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+
+              <button mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon" (click)="goToPetInfo(item)">
+                <i class="fas fa-eye"></i>
+              </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="not-found" *ngIf="list.length === 0">
+      No se encontraron resultados
+    </div>
+  </div>
+</div>

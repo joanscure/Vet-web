@@ -1,0 +1,56 @@
+<div class="header">
+  <span class="title-header">
+
+    Lista de veterinarios
+  </span>
+</div>
+<div class="body">
+  <div class="row-2">
+      <mat-form-field class="example-form-field">
+        <mat-label>Buscar Veterinario</mat-label>
+        <input matInput type="text" [(ngModel)]="search">
+        <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <div>
+        <button mat-button color="primary" (click)="openCreateDialog()">
+        <i class="fa-solid fa-plus"></i>
+        Agregar
+      </button>
+      </div>
+  </div>
+  <div *ngIf="loading" class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div *ngIf="!loading">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Telefono</th>
+          <th>Especialista</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of vetsList | filterList: search; let i= index">
+          <td>{{item.fullname}}</td>
+          <td>{{item.email}}</td>
+          <td>{{item.profile.phoneNumber}}</td>
+          <td>{{item.profile.specialist}}</td>
+          <td class="row">
+              <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" (click)="openEditDialog(item)">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+
+              <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon" (click)="deleteItem(item,i)">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

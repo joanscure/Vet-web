@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "patitas-felices-app": {
+      "hosting": {
+        "patitas-felices-web": [
+          "patitas-felices-app"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "patitas-felices-app"
+  }
+}
