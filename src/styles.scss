@@ -85,3 +85,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   padding: 1.2rem;
 
 }
+.input-file {
+    opacity: 0;
+    display: block;
+    position: absolute;
+    height: 200px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}

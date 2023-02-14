@@ -21,6 +21,18 @@
     </mat-form-field>
   </div>
 
+
+  <div class="w-100">
+    <mat-form-field appearance="fill">
+      <mat-label>Veterinario</mat-label>
+      <mat-select [(ngModel)]="newData.vet" name="vet">
+        <mat-option *ngFor="let vet of listVets" [value]="vet.id">
+          {{vet.fullname}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
   <div class="w-100">
     <mat-form-field class="w-100">
       <mat-label>Notas Adicinaltes</mat-label>

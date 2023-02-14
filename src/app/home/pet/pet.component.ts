@@ -139,7 +139,10 @@ export class PetComponent {
   }
   openEditDialog(item: any): void {
     const dialogRef = this.dialog.open(CreatePetComponent, {
-      data: item,
+      data: {
+        pet: item,
+        types: this.types,
+      },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result == null) return;

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {
   collection,
+  deleteDoc,
   Firestore,
   getDocs,
   query,
@@ -23,6 +24,7 @@ export class PetInfoComponent {
   user_id: any = null;
   pet: any = {};
   list: any[] = [];
+  vets: any[] = [];
   events: any[] = [];
   pet_id: any = null;
   constructor(
@@ -89,9 +91,9 @@ export class PetInfoComponent {
       'events'
     );
 
-    const queryUser = query(refCol);
+    const queryEvents = query(refCol);
 
-    const events = await getDocs(queryUser);
+    const events = await getDocs(queryEvents);
     if (events.empty) {
       this.events = [];
     }
@@ -105,6 +107,9 @@ export class PetInfoComponent {
         notes: data.notes,
         date: data.date,
         dateFormat: dateFormat,
+        petId: this.pet_id,
+        assignedName: data.assignedName === '' ? '--' : data.assignedName,
+        assignedId: data.assignedId,
       };
     });
     const refColHistory = collection(
@@ -131,6 +136,24 @@ export class PetInfoComponent {
         treatment: data.treatment,
         images: data.images,
         dateFormat: dateFormat,
+        petId: this.pet_id,
+        assignedName: data.assignedName === '' ? '--' : data.assignedName,
+        assignedId: data.assignedId,
+      };
+    });
+
+    const userRef = collection(this.firestore, 'users');
+    const queryUser = query(userRef, where('isVet', '==', true));
+    const vets = await getDocs(queryUser);
+
+    if (vets.empty) {
+      this.vets = [];
+    }
+    this.vets = vets.docs.map((item) => {
+      const data: any = item.data();
+      return {
+        id: item.id,
+        fullname: data.fullname,
       };
     });
 
@@ -161,6 +184,22 @@ export class PetInfoComponent {
     this.router.navigate(['/customer']);
   };
 
+  async deleteEvent(id: string, index: number) {
+    await deleteDoc(
+      doc(doc(this.firestore, 'pets', this.pet_id), 'events', id)
+    );
+
+    this.events.splice(index, 1);
+  }
+
+  async deleteHistory(id: string, index: number) {
+    await deleteDoc(
+      doc(doc(this.firestore, 'pets', this.pet_id), 'histories', id)
+    );
+
+    this.list.splice(index, 1);
+  }
+
   openCreateEvent(): void {
     const dialogRef = this.dialog.open(CreateEventComponent, {
       data: {
@@ -168,7 +207,10 @@ export class PetInfoComponent {
         reason: '',
         notes: '',
         date: '',
+        pet: this.pet.name,
         petId: this.pet_id,
+        vets: this.vets,
+        userId: this.user_id,
       },
     });
 
@@ -179,6 +221,25 @@ export class PetInfoComponent {
       }
     });
   }
+
+  openEditEvent(item: any): void {
+    const dialogRef = this.dialog.open(CreateEventComponent, {
+      data: {
+        ...item,
+        vets: this.vets,
+        pet: this.pet.name,
+        userId: this.user_id,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == null) return;
+
+      const dateFormat = new Date(result.date).toISOString().substring(0, 10);
+      const index = this.events.findIndex((item) => item.id == result.id);
+      this.events.splice(index, 1, { ...result, dateFormat });
+    });
+  }
+
   openCreateHistory(): void {
     const dialogRef = this.dialog.open(CreateHistoryComponent, {
       data: {
@@ -190,6 +251,8 @@ export class PetInfoComponent {
         treatment: '',
         images: [],
         petId: this.pet_id,
+        vets: this.vets,
+        pet: this.pet.name,
       },
     });
 
@@ -198,6 +261,18 @@ export class PetInfoComponent {
         const dateFormat = new Date(result.date).toISOString().substring(0, 10);
         this.list.push({ ...result, dateFormat });
       }
+    });
+  }
+  openEditHistory(item: any): void {
+    const dialogRef = this.dialog.open(CreateHistoryComponent, {
+      data: { ...item, vets: this.vets, pet: this.pet.name },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == null) return;
+
+      const dateFormat = new Date(result.date).toISOString().substring(0, 10);
+      const index = this.list.findIndex((item) => item.id == result.id);
+      this.list.splice(index, 1, { ...result, dateFormat });
     });
   }
 }

@@ -43,13 +43,37 @@
           </mat-datepicker>
         </mat-form-field>
       </div>
+
+      <div class="w-100">
+        <mat-form-field appearance="fill">
+          <mat-label>Veterinario</mat-label>
+          <mat-select [(ngModel)]="newData.vet" name="vet">
+            <mat-option *ngFor="let vet of listVets" [value]="vet.id">
+              {{vet.fullname}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
+
     <div class="adjuntos">
       <h3>
         <b>Archivos Adjuntos</b>
       </h3>
 
-  <button mat-button color="primary" >Agregar Archivo</button>
+      <div style="display: flex; flex-wrap: wrap; max-width: 300px;">
+        <div class="added" *ngFor="let item of newData.images;let i = index">
+
+          <img class="img" [src]="item">
+          <img src="assets/delete.svg" alt="" (click)="deleteImage(item,i)">
+        </div>
+
+      </div>
+        <button mat-button color="primary" >
+
+
+            <input type="file" class="input-file" (change)="onInput($event)" style="width: 100%;">
+          Agregar Archivo</button>
     </div>
 
   </div>

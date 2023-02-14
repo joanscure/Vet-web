@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { LocalstorageService } from '../../services/localstorage.services';
 
 @Component({
@@ -8,7 +9,11 @@ import { LocalstorageService } from '../../services/localstorage.services';
 })
 export class DrawerComponent {
   user: any;
-  constructor(private lStorage: LocalstorageService) {
+  constructor(private lStorage: LocalstorageService, private router: Router) {
     this.user = lStorage.get('USER');
+  }
+  logout() {
+    this.lStorage.remove('USER');
+    this.router.navigateByUrl('/login');
   }
 }

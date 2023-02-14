@@ -31,6 +31,12 @@ export class AuthComponent {
     private lStorage: LocalstorageService
   ) {}
 
+  ngOnInit(): void {
+    if (this.lStorage.get('USER')) {
+      this.router.navigateByUrl('');
+    }
+  }
+
   getErrorMessage() {
     if (this.email.hasError('required')) {
       return 'Ingrese un valor';

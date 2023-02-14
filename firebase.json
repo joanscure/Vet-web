@@ -1,10 +1,8 @@
 {
   "hosting": {
     "target": "patitas-felices-web",
-    "public": "dist/patitas-felices-web",
-    "ignore": [
-      "**/.*"
-    ],
+    "public": "dist",
+    "ignore": ["**/.*"],
     "headers": [
       {
         "source": "*.[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].+(css|js)",
@@ -33,3 +31,4 @@
     ]
   }
 }
+

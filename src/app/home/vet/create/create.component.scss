@@ -1,8 +1,9 @@
 .img {
   text-align: center;
   img {
-
     width: 200px;
+    object-fit: cover;
+    height: 200px;
   }
 }
 

@@ -13,9 +13,11 @@ import { MaterialModule } from './material.module';
 import { SETTINGS as AUTH_SETTINGS } from '@angular/fire/compat/auth';
 import { USE_DEVICE_LANGUAGE } from '@angular/fire/compat/auth';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { LoaderComponent } from './components/loader/loader.component';
+import { LoaderService } from './services/loader.services';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LoaderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -34,6 +36,7 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
     { provide: USE_DEVICE_LANGUAGE, useValue: true },
+    LoaderService,
   ],
   bootstrap: [AppComponent],
 })

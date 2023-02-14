@@ -41,6 +41,7 @@ export class VetComponent {
     if (vets.empty) {
       this.vetsList = [];
     }
+
     this.vetsList = vets.docs.map((item) => {
       const data: any = item.data();
       return {

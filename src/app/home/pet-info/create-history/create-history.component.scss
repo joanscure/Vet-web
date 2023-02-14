@@ -6,3 +6,30 @@
 .form{
   min-width: 300px;
 }
+
+.added{
+  position: relative;
+  margin-right: 15px;
+  .img
+  {
+      width: 87px;
+      height: 88px;
+      border: 1px solid #BED4FF;
+      object-fit: contain;
+  }
+
+  .button-delete
+  {
+      display: none;
+      position: absolute;
+      top: -7px;
+      background: #FFFFFF;
+      right: -8px;
+      cursor: pointer;
+  }
+  &:hover{
+      .button-delete{
+          display: inline;
+      }
+  }
+}
