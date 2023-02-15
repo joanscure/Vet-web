@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { Firestore, collection } from '@angular/fire/firestore';
+import { Firestore, collection, updateDoc } from '@angular/fire/firestore';
 import { addDoc, doc, setDoc } from '@firebase/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
@@ -16,6 +16,7 @@ export class CreateCustomerComponent {
   title: string = 'Crear Cliente';
   newData: any = {};
   file: any = null;
+  email: string = '';
   constructor(
     public dialogRef: MatDialogRef<CreateCustomerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -27,6 +28,7 @@ export class CreateCustomerComponent {
       this.title = 'Editar Cliente';
     }
     this.newData = { ...data };
+    this.email = data.email;
   }
 
   onNoClick(): void {
@@ -52,7 +54,7 @@ export class CreateCustomerComponent {
 
       link = await ref.getDownloadURL().toPromise();
     }
-    const newData = {
+    const newData: any = {
       fullname: this.newData.fullname,
       email: this.newData.email,
       isAdmin: false,
@@ -69,6 +71,7 @@ export class CreateCustomerComponent {
 
     let response: any = {};
     if (this.data.id == '') {
+      newData.isCreated = false;
       const result = await addDoc(collection(this.firestore, 'users'), newData);
 
       response = {
@@ -76,7 +79,9 @@ export class CreateCustomerComponent {
         id: result.id,
       };
     } else {
-      await setDoc(doc(this.firestore, 'users', this.data.id), newData);
+      newData.isCreated =
+        this.email == this.newData.email ? newData.isCreated : false;
+      await updateDoc(doc(this.firestore, 'users', this.data.id), newData);
 
       response = {
         ...newData,

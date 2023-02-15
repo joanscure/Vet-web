@@ -4,17 +4,14 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'filterList',
 })
 export class FilterListPipe implements PipeTransform {
-  transform(items: any[], key: string, isPasswords: boolean = false): any[] {
+  transform(items: any[], key: string): any[] {
     if (!items) {
       return [];
     }
 
     if (!key) return items;
 
-    let keys: any;
-    keys = !isPasswords
-      ? Object.keys(items[0])
-      : Object.keys(items[0]['general']);
+    let keys: any = Object.keys(items[0]);
 
     if (keys.includes(key)) return [];
 

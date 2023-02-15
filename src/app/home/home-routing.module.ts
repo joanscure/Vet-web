@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AppointmentsComponent } from './appointments/appointments.component';
 import { ChatComponent } from './chat/chat.component';
 import { CustomerComponent } from './customer/customer.component';
 import { HomeComponent } from './home.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: 'customer', component: CustomerComponent },
       { path: 'user', component: UserComponent },
       { path: 'type-pet', component: TypePetComponent },
+      { path: 'appointments', component: AppointmentsComponent },
       { path: 'pet/:id/list', component: PetComponent },
       { path: 'pet/:id/info/:pet', component: PetInfoComponent },
       { path: '**', redirectTo: 'vet' },

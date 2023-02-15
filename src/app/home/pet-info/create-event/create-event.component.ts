@@ -32,6 +32,7 @@ export class CreateEventComponent {
   async save() {
     const date = new Date(this.newData.date).getTime();
     const vet = this.listVets.find((x) => x.id === this.newData.vet);
+
     const newData = {
       reason: this.newData.reason,
       notes: this.newData.notes,
@@ -43,7 +44,6 @@ export class CreateEventComponent {
 
     let response: any = {};
 
-    console.log(newData);
     if (this.data.id == '') {
       const refCol = collection(
         doc(this.firestore, 'pets', this.newData.petId),
@@ -60,6 +60,8 @@ export class CreateEventComponent {
         ...newData,
         petName: this.newData.pet,
         petId: this.newData.petId,
+        isApproved: true,
+        isClose: false,
       });
     } else {
       const refCol = doc(

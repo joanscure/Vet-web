@@ -1,0 +1,136 @@
+<div class="header">
+  <span class="title-header">
+
+    Citas Programadas
+  </span>
+</div>
+<div class="body">
+  <div class="row-2">
+      <mat-form-field class="example-form-field">
+        <mat-label>Buscar Cita</mat-label>
+        <input matInput type="text" [(ngModel)]="search">
+        <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Cliente</mat-label>
+          <mat-select [(ngModel)]="clientId">
+            <mat-option value="0">
+              Todos
+            </mat-option>
+            <mat-option *ngFor="let item of users" [value]="item.id">
+              {{item.fullname}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Veterinario</mat-label>
+          <mat-select [(ngModel)]="vetId">
+            <mat-option value="0">
+              Todos
+            </mat-option>
+            <mat-option *ngFor="let item of vets" [value]="item.id">
+              {{item.fullname}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Estado</mat-label>
+          <mat-select [(ngModel)]="status">
+            <mat-option [value]="0">
+              Todos
+            </mat-option>
+            <mat-option [value]="1">
+              Pendientes
+            </mat-option>
+
+            <mat-option [value]="2">
+              Completados
+            </mat-option>
+            <mat-option [value]="3">
+              Cancelados
+            </mat-option>
+          </mat-select>
+
+        </mat-form-field>
+      </div>
+  </div>
+  <div *ngIf="loading" class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div *ngIf="!loading">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Motivo</th>
+          <th>Fecha y hora</th>
+          <th>Especialista</th>
+          <th>Notas</th>
+          <th>¿Aprobado?</th>
+          <th>¿Completado?</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of list | filterListApp:search:clientId:vetId:status; let i= index">
+          <td>{{item.user.fullname}}</td>
+          <td>{{item.reason}}</td>
+          <td>{{item.dateFormat | date:'medium'}}</td>
+          <td>{{item.assignedName}}</td>
+          <td>{{item.notes != '' ? item.notes : '--'}}</td>
+          <td >
+            <div class="row" *ngIf="item.isApproved == false && item.isClose == false">
+              <button mat-mini-fab color="primary" (click)="approved(item,i)">
+                <i class="fa-solid fa-check"></i>
+              </button>
+              <button mat-mini-fab color="warn" (click)="cancel(item,i)">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            <div *ngIf="item.isApproved == true">
+              <span > Aprobado</span>
+            </div>
+
+            <div *ngIf="item.isApproved == false && item.isClose == true">
+              <span > Cancelado</span>
+            </div>
+          </td>
+
+          <td>
+            <div class="row" *ngIf="item.isApproved == true && item.isClose == false">
+              <button mat-mini-fab color="primary" (click)="complete(item,i)" >
+                <i class="fa-solid fa-check"></i>
+              </button>
+              <button mat-mini-fab color="warn" (click)="cancel(item,i)"  >
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+
+            <div *ngIf="item.isApproved == true && item.isClose == true">
+              <span> Completado</span>
+            </div>
+
+            <div *ngIf="item.isApproved == false && item.isClose == false">
+              <span>Esperando Aprobacion</span>
+            </div>
+
+            <div *ngIf="item.isApproved == false && item.isClose == true">
+              <span>Rechazado</span>
+            </div>
+          </td>
+
+          <td class="row">
+              <button mat-mini-fab color="primary" (click)="openEditDialog(item, i)">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

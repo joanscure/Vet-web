@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { v1 as uuidv1 } from 'uuid';
 
-import { Firestore, collection } from '@angular/fire/firestore';
+import { Firestore, collection, updateDoc } from '@angular/fire/firestore';
 import { addDoc, doc, setDoc } from '@firebase/firestore';
 import { LoaderService } from '../../../services/loader.services';
 @Component({
@@ -15,6 +15,7 @@ export class CreateVetComponent {
   title: string = 'Crear Veterinario';
   newData: any = {};
   file: any = null;
+  email: string = '';
   constructor(
     public dialogRef: MatDialogRef<CreateVetComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -26,6 +27,7 @@ export class CreateVetComponent {
       this.title = 'Editar Veterinario';
     }
     this.newData = { ...data };
+    this.email = data.email;
   }
 
   onNoClick(): void {
@@ -51,7 +53,7 @@ export class CreateVetComponent {
 
       link = await ref.getDownloadURL().toPromise();
     }
-    const newData = {
+    const newData: any = {
       fullname: this.newData.fullname,
       email: this.newData.email,
       isAdmin: false,
@@ -69,6 +71,7 @@ export class CreateVetComponent {
 
     let response: any = {};
     if (this.data.id == '') {
+      newData.isCreated = false;
       const result = await addDoc(collection(this.firestore, 'users'), newData);
 
       response = {
@@ -76,7 +79,9 @@ export class CreateVetComponent {
         id: result.id,
       };
     } else {
-      await setDoc(doc(this.firestore, 'users', this.data.id), newData);
+      newData.isCreated =
+        this.email == this.newData.email ? newData.isCreated : false;
+      await updateDoc(doc(this.firestore, 'users', this.data.id), newData);
 
       response = {
         ...newData,

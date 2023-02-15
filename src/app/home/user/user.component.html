@@ -1,1 +1,45 @@
-<p>user works!</p>
+<div class="header">
+  <span class="title-header">
+
+    Lista de Usuarios
+  </span>
+</div>
+<div class="body">
+  <div class="row-2">
+      <mat-form-field class="example-form-field">
+        <mat-label>Buscar Usuarios</mat-label>
+        <input matInput type="text" [(ngModel)]="search">
+        <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+  </div>
+  <div *ngIf="loading" class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div *ngIf="!loading">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>¿Se creó usuario?</th>
+          <th>Crear usuario</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of users | filterList: search; let i= index">
+          <td>{{item.fullname}}</td>
+          <td>{{item.email}}</td>
+          <td>{{item.isCreated ? 'Si' : 'No'}}</td>
+          <td class="row">
+
+              <button mat-mini-fab color="success" (click)="openCreateDialog(item, i)" *ngIf="!item.isCreated">
+<i class="fa-solid fa-user-plus"></i>
+              </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

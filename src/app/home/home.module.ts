@@ -20,6 +20,11 @@ import { PetInfoComponent } from './pet-info/pet-info.component';
 import { CreatePetComponent } from './pet/create-pet/create-pet.component';
 import { CreateEventComponent } from './pet-info/create-event/create-event.component';
 import { CreateHistoryComponent } from './pet-info/create-history/create-history.component';
+import { GenerateUserComponent } from './user/generate-user/generate-user.component';
+import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
+import { AppointmentsComponent } from './appointments/appointments.component';
+import { EditAppComponent } from './appointments/edit-app/edit-app.component';
+import { FilterListAppPipe } from '../pipes/filter-list-app.pipe';
 
 @NgModule({
   declarations: [
@@ -39,6 +44,11 @@ import { CreateHistoryComponent } from './pet-info/create-history/create-history
     CreatePetComponent,
     CreateEventComponent,
     CreateHistoryComponent,
+    GenerateUserComponent,
+    ResetPasswordComponent,
+    AppointmentsComponent,
+    EditAppComponent,
+    FilterListAppPipe,
   ],
   imports: [
     CommonModule,

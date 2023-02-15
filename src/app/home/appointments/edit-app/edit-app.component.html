@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>Editar Evento</h1>
+<div mat-dialog-content >
+  <div class="w-100">
+    <mat-form-field class="w-100">
+      <mat-label>Motivo</mat-label>
+      <textarea matInput [(ngModel)]="newData.reason" ></textarea>
+    </mat-form-field>
+  </div>
+
+
+  <div class="w-100">
+    <mat-form-field appearance="fill">
+      <mat-label>Veterinario</mat-label>
+      <mat-select [(ngModel)]="newData.assignedId" name="vet">
+        <mat-option *ngFor="let vet of listVets" [value]="vet.id">
+          {{vet.fullname}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="w-100">
+    <mat-form-field class="w-100">
+      <mat-label>Notas Adicinaltes</mat-label>
+      <textarea matInput [(ngModel)]="newData.notes" ></textarea>
+    </mat-form-field>
+  </div>
+
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+
+  <button mat-button color="primary" (click)="save()" cdkFocusInitial>Guardar</button>
+</div>
