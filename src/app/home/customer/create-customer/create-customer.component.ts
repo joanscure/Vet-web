@@ -27,7 +27,7 @@ export class CreateCustomerComponent {
     if (data.id != '') {
       this.title = 'Editar Cliente';
     }
-    this.newData = { ...data };
+    this.newData = JSON.parse(JSON.stringify(data));
     this.email = data.email;
   }
 
@@ -62,6 +62,7 @@ export class CreateCustomerComponent {
       isClient: true,
       profile: {
         email: this.newData.email,
+        dni: this.newData.profile.dni,
         notes: this.newData.profile.notes,
         phoneNumber: this.newData.profile.phoneNumber,
         photoUrl: link,
@@ -91,6 +92,10 @@ export class CreateCustomerComponent {
 
     this.dialogRef.close(response);
     this.loader.hide();
+  }
+
+  generateEmail() {
+    this.newData.email = this.newData.profile.dni + '@patita.feliz.com';
   }
 
   async onInput(event: any) {

@@ -4,6 +4,17 @@
     >
 
     <div class="form">
+
+    <div class="w-100">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>ESTADO DE MASCOTA</mat-label>
+          <mat-select [(ngModel)]="newData.status" name="status">
+            <mat-option *ngFor="let status of listStatus" [value]="status">
+              {{status}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
       <div class="w-100">
         <mat-form-field class="w-100">
           <mat-label>Motivo</mat-label>
@@ -45,7 +56,7 @@
       </div>
 
       <div class="w-100">
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" class="w-100">
           <mat-label>Veterinario</mat-label>
           <mat-select [(ngModel)]="newData.vet" name="vet">
             <mat-option *ngFor="let vet of listVets" [value]="vet.id">
@@ -54,6 +65,7 @@
           </mat-select>
         </mat-form-field>
       </div>
+
     </div>
 
     <div class="adjuntos">

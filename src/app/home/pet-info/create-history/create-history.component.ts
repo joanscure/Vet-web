@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { Firestore } from '@angular/fire/firestore';
+import { Firestore, updateDoc } from '@angular/fire/firestore';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { addDoc, collection, doc, setDoc } from '@firebase/firestore';
 import { v1 as uuidv1 } from 'uuid';
@@ -16,6 +16,12 @@ export class CreateHistoryComponent {
   newData: any = {};
   listVets: any[] = [];
   images: any[] = [];
+  listStatus: string[] = [
+    'SALUDABLE',
+    'INTERNADO/EMERGENCIA',
+    'TRATAMIENTO',
+    'EN OBSERVACION',
+  ];
   constructor(
     public dialogRef: MatDialogRef<CreateHistoryComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -23,10 +29,12 @@ export class CreateHistoryComponent {
     private loader: LoaderService,
     private firestore: Firestore
   ) {
+    this.newData = { ...data };
     if (data.id != '') {
       this.title = 'Editar Historia';
+    } else {
+      this.newData.status = 'SALUDABLE';
     }
-    this.newData = { ...data };
     this.listVets = data.vets;
     this.newData.vet = data.assignedId ?? '';
     this.newData.date = new Date(data.date);
@@ -64,6 +72,7 @@ export class CreateHistoryComponent {
       reason: this.newData.reason,
       date: date,
       anamnesis: this.newData.anamnesis,
+      status: this.newData.status,
       diagnostic: this.newData.diagnostic,
       treatment: this.newData.treatment,
       images: newImages,
@@ -83,17 +92,46 @@ export class CreateHistoryComponent {
         ...newData,
         id: result.id,
       };
+
+      await updateDoc(doc(this.firestore, 'pets', this.newData.petId), {
+        status: newData.status,
+      });
+
+      await setDoc(doc(this.firestore, 'appointments', result.id), {
+        assignedName: vet ? vet.fullname : '',
+        assignedId: this.newData.vet ?? '',
+        date: date,
+        userId: this.newData.userId,
+        reason: `El estado de su mascota esta en: '${this.newData.status}' `,
+        notes: this.newData.reason,
+        petName: this.newData.pet,
+        petId: this.newData.petId,
+        isApproved: true,
+        isClose: true,
+      });
     } else {
       const refCol = doc(
         doc(this.firestore, 'pets', this.newData.petId),
         'histories',
         this.newData.id
       );
-      await setDoc(refCol, newData);
+      await updateDoc(refCol, newData);
       response = {
         ...newData,
         id: this.data.id,
       };
+      await updateDoc(doc(this.firestore, 'appointments', this.data.id), {
+        assignedName: vet ? vet.fullname : '',
+        assignedId: this.newData.vet ?? '',
+        date: date,
+        userId: this.newData.userId,
+        reason: `El estado de ${this.newData.pet}: '${this.newData.status}' `,
+        notes: this.newData.reason,
+        petName: this.newData.pet,
+        petId: this.newData.petId,
+        isApproved: true,
+        isClose: true,
+      });
     }
 
     this.dialogRef.close(response);

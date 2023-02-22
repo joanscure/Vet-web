@@ -71,6 +71,7 @@ export class CustomerComponent {
         email: '',
         profile: {
           phoneNumber: '',
+          dni: '',
           whatsapp: '',
           specialist: '',
           notes: '',

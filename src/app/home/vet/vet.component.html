@@ -28,6 +28,7 @@
       <thead>
         <tr>
           <th>Nombre</th>
+          <th>DNI</th>
           <th>Email</th>
           <th>Telefono</th>
           <th>Especialista</th>
@@ -37,7 +38,8 @@
       <tbody>
         <tr *ngFor="let item of vetsList | filterList: search; let i= index">
           <td>{{item.fullname}}</td>
-          <td>{{item.email}}</td>
+          <td>{{item.dni}}</td>
+          <td>{{item.profile.email}}</td>
           <td>{{item.profile.phoneNumber}}</td>
           <td>{{item.profile.specialist}}</td>
           <td class="row">

@@ -7,6 +7,7 @@ import {
   doc,
   setDoc,
   updateDoc,
+  orderBy,
 } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { EditAppComponent } from './edit-app/edit-app.component';
@@ -64,18 +65,19 @@ export class AppointmentsComponent {
     await this.getUsers();
     this.loading = true;
     const userRef = collection(this.firestore, 'appointments');
-    const queryUser = query(userRef);
+    const queryUser = query(userRef, orderBy('date', 'desc'));
     const appointments = await getDocs(queryUser);
 
     if (appointments.empty) {
       this.list = [];
     }
 
-    this.list = appointments.docs.map((item) => {
+    appointments.docs.forEach((item) => {
       const data: any = item.data();
       const dateFormat = new Date(data.date);
       const user = this.users.find((x) => x.id == data.userId);
-      return {
+      if (!user) return;
+      this.list.push({
         id: item.id,
         assignedId: data.assignedId,
         assignedName: data.assignedName,
@@ -88,7 +90,7 @@ export class AppointmentsComponent {
         reason: data.reason,
         user: user,
         userId: data.userId,
-      };
+      });
     });
 
     this.loading = false;

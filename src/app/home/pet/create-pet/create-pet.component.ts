@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { Firestore, collection } from '@angular/fire/firestore';
+import { Firestore, collection, updateDoc } from '@angular/fire/firestore';
 import { addDoc, doc, setDoc } from '@firebase/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { v1 as uuidv1 } from 'uuid';
@@ -75,7 +75,7 @@ export class CreatePetComponent {
         id: result.id,
       };
     } else {
-      await setDoc(doc(this.firestore, 'pets', this.data.pet.id), newData);
+      await updateDoc(doc(this.firestore, 'pets', this.data.pet.id), newData);
 
       response = {
         ...newData,

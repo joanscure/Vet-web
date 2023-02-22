@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { Firestore } from '@angular/fire/firestore';
+import { Firestore, updateDoc } from '@angular/fire/firestore';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { addDoc, collection, doc, setDoc } from '@firebase/firestore';
 
@@ -69,13 +69,13 @@ export class CreateEventComponent {
         'events',
         this.newData.id
       );
-      await setDoc(refCol, newData);
+      await updateDoc(refCol, newData);
       response = {
         ...newData,
         id: this.data.id,
       };
 
-      await setDoc(doc(this.firestore, 'appointments', this.data.id), {
+      await updateDoc(doc(this.firestore, 'appointments', this.data.id), {
         ...newData,
         petName: this.newData.pet,
         petId: this.newData.petId,

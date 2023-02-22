@@ -4,6 +4,7 @@ import {
   deleteDoc,
   Firestore,
   getDocs,
+  orderBy,
   query,
   where,
 } from '@angular/fire/firestore';
@@ -91,7 +92,7 @@ export class PetInfoComponent {
       'events'
     );
 
-    const queryEvents = query(refCol);
+    const queryEvents = query(refCol, orderBy('date', 'desc'));
 
     const events = await getDocs(queryEvents);
     if (events.empty) {
@@ -117,7 +118,7 @@ export class PetInfoComponent {
       'histories'
     );
 
-    const queryHistory = query(refColHistory);
+    const queryHistory = query(refColHistory, orderBy('date', 'desc'));
 
     const histories = await getDocs(queryHistory);
     if (histories.empty) {
@@ -253,6 +254,7 @@ export class PetInfoComponent {
         petId: this.pet_id,
         vets: this.vets,
         pet: this.pet.name,
+        userId: this.user_id,
       },
     });
 
@@ -265,7 +267,12 @@ export class PetInfoComponent {
   }
   openEditHistory(item: any): void {
     const dialogRef = this.dialog.open(CreateHistoryComponent, {
-      data: { ...item, vets: this.vets, pet: this.pet.name },
+      data: {
+        ...item,
+        vets: this.vets,
+        pet: this.pet.name,
+        userId: this.user_id,
+      },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result == null) return;

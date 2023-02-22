@@ -72,6 +72,7 @@ export class VetComponent {
         email: '',
         profile: {
           phoneNumber: '',
+          dni: '',
           whatsapp: '',
           specialist: '',
           notes: '',

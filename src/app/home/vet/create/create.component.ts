@@ -61,6 +61,7 @@ export class CreateVetComponent {
       isClient: false,
       profile: {
         email: this.newData.email,
+        dni: this.newData.profile.dni,
         notes: this.newData.profile.notes,
         phoneNumber: this.newData.profile.phoneNumber,
         photoUrl: link,
@@ -97,8 +98,11 @@ export class CreateVetComponent {
     if (!event.target.files[0]) return;
     this.file = event.target.files[0];
     const stringb64 = await this.toBase64(this.file);
-    console.log('stringb64', stringb64);
     this.newData.profile.photoUrl = stringb64;
+  }
+
+  generateEmail() {
+    this.newData.email = this.newData.profile.dni + '@patita.feliz.com';
   }
 
   toBase64 = (file: any) =>

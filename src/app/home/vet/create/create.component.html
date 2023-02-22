@@ -12,10 +12,17 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
+      <mat-label>DNI</mat-label>
+      <input matInput [(ngModel)]="newData.profile.dni" (keyup)="generateEmail()">
+    </mat-form-field>
+
+
+  </div>
+  <div class="w-100">
+    <mat-form-field appearance="fill" class="w-100">
       <mat-label>Email</mat-label>
       <input matInput [(ngModel)]="newData.email">
     </mat-form-field>
-
   </div>
   <div class="row">
     <mat-form-field appearance="fill">

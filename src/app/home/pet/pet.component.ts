@@ -28,6 +28,13 @@ export class PetComponent {
   search: string = '';
   user_id: any = '';
   user: any = null;
+
+  listStatus: any = {
+    SALUDABLE: 'success',
+    'INTERNADO/EMERGENCIA': 'danger',
+    TRATAMIENTO: 'warning',
+    'EN OBSERVACION': 'primary',
+  };
   constructor(
     private firestore: Firestore,
     public dialog: MatDialog,
@@ -72,12 +79,15 @@ export class PetComponent {
         gender: data.gender,
         name: data.name,
         petType: data.petType,
+        status: data.status ?? 'SALUDABLE',
+        colorStatus: this.listStatus[data.status ?? 'SALUDABLE'],
         photoUrl: '',
         userId: data.userId,
       };
     });
     this.loading = false;
   }
+
   displayAge(birth: any, target: any) {
     let months = target.diff(birth, 'months', true);
     let birthSpan = {
